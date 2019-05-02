@@ -1,0 +1,5 @@
+bin
+obj
+/*.user
+/.vs/Tools/v15/*.suo
+.vs

@@ -1,0 +1,21 @@
+﻿<Window x:Class="Craft.Windows.ItemsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Справочник предметов" Height="600" Width="400" Icon="/Craft;component/App.ico"
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="_lb" SelectionChanged="ListBoxSelectionChanged" MouseDoubleClick="OnEditClick"></ListBox>
+        <StackPanel Grid.Column="1">
+            <Button Content="Добавить..." Click="OnAddClick"/>
+            <Button Content="Редактировать..." x:Name="_btnEdit" Click="OnEditClick"/>
+            <Button Content="Удалить" IsEnabled="False"/>
+        </StackPanel>
+    </Grid>
+</Window>
