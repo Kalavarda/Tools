@@ -3,53 +3,55 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using Craft.Model;
 
 namespace Craft.Windows
 {
-    public partial class ItemsWindow
+    public partial class RecipesWindow
     {
         private readonly Project _project;
-        private readonly ObservableCollection<Item> _items = new ObservableCollection<Item>();
+        private readonly ObservableCollection<Recipe> _recipes = new ObservableCollection<Recipe>();
 
-        private IReadOnlyCollection<Item> SelectedItems
+        private IReadOnlyCollection<Recipe> SelectedItems
         {
             get
             {
-                var items = _lb.SelectedItems.OfType<Item>();
+                var items = _lb.SelectedItems.OfType<Recipe>();
                 return items.ToArray();
             }
         }
 
-        public ItemsWindow()
+        public RecipesWindow()
         {
             InitializeComponent();
 
-            _lb.ItemsSource = _items;
-
-            Tune();
+            _lb.ItemsSource = _recipes;
         }
 
-        public ItemsWindow(Project project): this()
+        public RecipesWindow(Project project): this()
         {
             _project = project ?? throw new ArgumentNullException(nameof(project));
 
-            foreach(var item in _project.Items)
-                _items.Add(item);
+            foreach (var recipe in _project.Recipes)
+                _recipes.Add(recipe);
+        }
+
+        private void Tune()
+        {
+            _btnEdit.IsEnabled = SelectedItems.Count == 1;
         }
 
         private void OnAddClick(object sender, RoutedEventArgs e)
         {
-            var item = new Item
+            var recipe = new Recipe
             {
                 Id = Guid.NewGuid()
             };
-            var window = new ItemWindow(item) { Owner = this };
+            var window = new RecipeWindow(recipe, _project) { Owner = this };
             if (window.ShowDialog() == true)
             {
-                _project.Add(item);
-                _items.Add(item);
+                _project.Add(recipe);
+                _recipes.Add(recipe);
             }
         }
 
@@ -60,20 +62,15 @@ namespace Craft.Windows
 
         private void OnEditClick(object sender, RoutedEventArgs e)
         {
-            var item = SelectedItems.FirstOrDefault();
-            if (item == null)
+            var recipe = SelectedItems.FirstOrDefault();
+            if (recipe == null)
                 return;
 
-            var window = new ItemWindow(item) { Owner = this };
+            var window = new RecipeWindow(recipe, _project) { Owner = this };
             if (window.ShowDialog() == true)
             {
                 Tune();
             }
-        }
-
-        private void Tune()
-        {
-            _btnEdit.IsEnabled = SelectedItems.Count == 1;
         }
     }
 }

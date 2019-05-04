@@ -3,6 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <Style x:Key="DefaultText" TargetType="TextBlock">
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="DefaultComboBox" TargetType="ComboBox">
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="MinWidth" Value="64"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="DefaultTextBox" TargetType="TextBox">
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="MinWidth" Value="64"/>
+            </Style>
+
+            <Style x:Key="DefaultButton" TargetType="Button">
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="MinWidth" Value="64"/>
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

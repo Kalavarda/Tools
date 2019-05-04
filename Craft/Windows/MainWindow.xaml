@@ -6,6 +6,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Icon="/Craft;component/App.ico">
     <Grid>
-        <Button Content="Справочник предметов..." HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnItemsWindowClick"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Загрузить..." Click="OnLoadClick"/>
+                <MenuItem Header="Сохранить..." Click="OnSaveClick"/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="OnExitClick"/>
+            </MenuItem>
+            <MenuItem Header="Справочники">
+                <MenuItem Header="Предметы..." Click="OnItemsWindowClick"/>
+                <MenuItem Header="Рецепты..." Click="OnRecipesWindowClick"/>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
