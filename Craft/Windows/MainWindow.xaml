@@ -23,5 +23,7 @@
                 <MenuItem Header="Рецепты..." Click="OnRecipesWindowClick"/>
             </MenuItem>
         </Menu>
+
+        <Button Content="Крафт..." Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnCraftClick"/>
     </Grid>
 </Window>

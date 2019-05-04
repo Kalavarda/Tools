@@ -22,6 +22,7 @@ namespace Craft.Windows
 
             _tbItem.ItemsSource = project.Items.OrderBy(i => i.Name);
             _tbItem.SelectedItem = project.Items.FirstOrDefault(i => i.Id == recipeItem.ItemId);
+            _tbCount.Text = _recipeItem.Count.ToString();
         }
 
         private void OnOkClick(object sender, RoutedEventArgs e)

@@ -8,6 +8,7 @@ namespace Craft
     {
         private ItemsWindow _itemsWindow;
         private RecipesWindow _recipesWindow;
+        private CraftWindow _craftWindow;
 
         public MainWindow()
         {
@@ -66,6 +67,18 @@ namespace Craft
 
             _recipesWindow.Show();
             _recipesWindow.Focus();
+        }
+
+        private void OnCraftClick(object sender, RoutedEventArgs e)
+        {
+            if (_craftWindow == null)
+            {
+                _craftWindow = new CraftWindow(ProjectManager.Instance.Project) { Owner = this };
+                _craftWindow.Closed += (o, args) => { _craftWindow = null; };
+            }
+
+            _craftWindow.Show();
+            _craftWindow.Focus();
         }
     }
 }
