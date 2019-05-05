@@ -16,6 +16,8 @@
                 <MenuItem Header="Загрузить..." Click="OnLoadClick"/>
                 <MenuItem Header="Сохранить..." Click="OnSaveClick"/>
                 <Separator/>
+                <MenuItem x:Name="_miLastFile" Click="OnLastFileClick"/>
+                <Separator/>
                 <MenuItem Header="Выход" Click="OnExitClick"/>
             </MenuItem>
             <MenuItem Header="Справочники">

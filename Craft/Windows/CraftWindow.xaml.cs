@@ -37,18 +37,20 @@ namespace Craft.Windows
         {
             if (SelectedRecipe != null)
             {
-                _grdRecipeProcess.Visibility = Visibility.Visible;
-                _cbTotalCost.Text = _project.CalcFullCraftCost(SelectedRecipe).ToString();
-
-                var count = int.Parse(_tbCount.Text);
-                var itemsCount = _project.CalcFullCraftItemsCount(SelectedRecipe).OrderByDescending(p => p.Value);
-                var list = new List<string>();
-                foreach (var pair in itemsCount)
+                if (int.TryParse(_tbCount.Text, out var count))
                 {
-                    var item = _project.Items.FirstOrDefault(i => i.Id == pair.Key);
-                    list.Add(item.Name + " / " + pair.Value * count);
+                    _grdRecipeProcess.Visibility = Visibility.Visible;
+                    _cbTotalCost.Text = (_project.CalcFullCraftCost(SelectedRecipe) * count).ToString();
+
+                    var itemsCount = _project.CalcFullCraftItemsCount(SelectedRecipe).OrderByDescending(p => p.Value);
+                    var list = new List<string>();
+                    foreach (var pair in itemsCount)
+                    {
+                        var item = _project.Items.FirstOrDefault(i => i.Id == pair.Key);
+                        list.Add(item.Name + " / " + pair.Value * count);
+                    }
+                    _lbItemsCount.ItemsSource = list;
                 }
-                _lbItemsCount.ItemsSource = list;
             }
             else
             {

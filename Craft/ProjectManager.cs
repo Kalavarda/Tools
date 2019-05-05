@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Craft.Model;
+using Craft.Properties;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 
@@ -59,21 +60,33 @@ namespace Craft
             Project = new Project();
         }
 
-        public void Open()
+        public void Open(string fileName = null)
         {
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                OpenFile(fileName);
+                return;
+            }
+
             var fileDialog = new OpenFileDialog
             {
                 DefaultExt = FileDialogDefaultExt,
                 Filter = FileDialogFilter
             };
             if (fileDialog.ShowDialog() == true)
-            {
-                var serializer = JsonSerializer.CreateDefault();
-                using (var file = new FileStream(fileDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                using (var reader = new StreamReader(file))
-                    Project = serializer.Deserialize<Project>(new JsonTextReader(reader));
-                File = new FileInfo(fileDialog.FileName);
-            }
+                OpenFile(fileDialog.FileName);
+        }
+
+        private void OpenFile(string fileName)
+        {
+            var serializer = JsonSerializer.CreateDefault();
+            using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var reader = new StreamReader(file))
+                Project = serializer.Deserialize<Project>(new JsonTextReader(reader));
+            File = new FileInfo(fileName);
+
+            Settings.Default.LastFileName = File.FullName;
+            Settings.Default.Save();
         }
 
         public void Save()
@@ -95,6 +108,9 @@ namespace Craft
                 using (var file = new FileStream(File.FullName, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (var writer = new StreamWriter(file))
                     serializer.Serialize(writer, Project);
+
+                Settings.Default.LastFileName = File.FullName;
+                Settings.Default.Save();
             }
         }
     }

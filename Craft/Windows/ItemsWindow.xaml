@@ -14,7 +14,8 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="_lb" SelectionChanged="ListBoxSelectionChanged" MouseDoubleClick="OnEditClick"></ListBox>
+        <ListBox x:Name="_lb" SelectionChanged="ListBoxSelectionChanged" MouseDoubleClick="OnEditClick" SelectionMode="Extended">
+        </ListBox>
         <StackPanel Grid.Column="1">
             <Button Content="Добавить..." Click="OnAddClick"/>
             <Button Content="Редактировать..." x:Name="_btnEdit" Click="OnEditClick"/>

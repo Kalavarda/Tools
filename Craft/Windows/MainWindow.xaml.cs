@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using Craft.Properties;
 using Craft.Windows;
 
 namespace Craft
@@ -42,11 +43,13 @@ namespace Craft
         private void OnLoadClick(object sender, RoutedEventArgs e)
         {
             ProjectManager.Instance.Open();
+            Tune();
         }
 
         private void OnSaveClick(object sender, RoutedEventArgs e)
         {
             ProjectManager.Instance.Save();
+            Tune();
         }
 
         private void Tune()
@@ -55,6 +58,14 @@ namespace Craft
                 Title = Path.GetFileNameWithoutExtension(ProjectManager.Instance.File.Name) + " - Craft";
             else
                 Title = "Craft";
+
+            if (string.IsNullOrWhiteSpace(Settings.Default.LastFileName))
+                _miLastFile.Visibility = Visibility.Collapsed;
+            else
+            {
+                _miLastFile.Visibility = Visibility.Visible;
+                _miLastFile.Header = Path.GetFileName(Settings.Default.LastFileName);
+            }
         }
 
         private void OnRecipesWindowClick(object sender, RoutedEventArgs e)
@@ -79,6 +90,11 @@ namespace Craft
 
             _craftWindow.Show();
             _craftWindow.Focus();
+        }
+
+        private void OnLastFileClick(object sender, RoutedEventArgs e)
+        {
+            ProjectManager.Instance.Open(Settings.Default.LastFileName);
         }
     }
 }

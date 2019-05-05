@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using Craft.Model;
 
 namespace Craft.Windows
@@ -11,7 +10,6 @@ namespace Craft.Windows
     public partial class ItemsWindow
     {
         private readonly Project _project;
-        private readonly ObservableCollection<Item> _items = new ObservableCollection<Item>();
 
         private IReadOnlyCollection<Item> SelectedItems
         {
@@ -25,18 +23,14 @@ namespace Craft.Windows
         public ItemsWindow()
         {
             InitializeComponent();
-
-            _lb.ItemsSource = _items;
-
-            Tune();
         }
 
         public ItemsWindow(Project project): this()
         {
             _project = project ?? throw new ArgumentNullException(nameof(project));
+            _lb.ItemsSource = _project.Items.OrderBy(i => i.Name);
 
-            foreach(var item in _project.Items)
-                _items.Add(item);
+            Tune();
         }
 
         private void OnAddClick(object sender, RoutedEventArgs e)
@@ -49,8 +43,8 @@ namespace Craft.Windows
             if (window.ShowDialog() == true)
             {
                 _project.Add(item);
-                _items.Add(item);
             }
+            Tune();
         }
 
         private void ListBoxSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -73,6 +67,7 @@ namespace Craft.Windows
 
         private void Tune()
         {
+            _lb.ItemsSource = _project.Items.OrderBy(i => i.Name);
             _btnEdit.IsEnabled = SelectedItems.Count == 1;
         }
     }

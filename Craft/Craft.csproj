@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Windows\CraftWindow.xaml.cs">
       <DependentUpon>CraftWindow.xaml</DependentUpon>
     </Compile>
