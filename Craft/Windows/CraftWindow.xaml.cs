@@ -42,6 +42,11 @@ namespace Craft.Windows
                     _grdRecipeProcess.Visibility = Visibility.Visible;
                     _cbTotalCost.Text = (_project.CalcFullCraftCost(SelectedRecipe) * count).ToString();
 
+                    if (SelectedRecipe.Result != null)
+                        _tbResultCount.Text = (SelectedRecipe.Result.Count * count).ToString();
+                    else
+                        _tbResultCount.Text = string.Empty;
+
                     var itemsCount = _project.CalcFullCraftItemsCount(SelectedRecipe).OrderByDescending(p => p.Value);
                     var list = new List<string>();
                     foreach (var pair in itemsCount)

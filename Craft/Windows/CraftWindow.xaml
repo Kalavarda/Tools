@@ -14,6 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -32,7 +33,12 @@
             <TextBox x:Name="_tbCount" Grid.Column="3" Text="1"/>
         </Grid>
 
-        <Grid x:Name="_grdRecipeProcess" Grid.Row="1" Margin="4">
+        <StackPanel x:Name="_grdResult" Grid.Row="1" Margin="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Итого получится: "/>
+            <TextBox x:Name="_tbResultCount" Text="1" IsReadOnly="True"/>
+        </StackPanel>
+
+        <Grid x:Name="_grdRecipeProcess" Grid.Row="2" Margin="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
